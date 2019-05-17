@@ -48,5 +48,9 @@ protected:
 
 public:
     cv::Mat m_src;
+    cv::Mat m_mask;
+    float m_fWndSizeScaleFactorX=1.0f;
+    float m_fWndSizeScaleFactorY=1.0f;
+    float m_fScale=1.0f;
 //    afx_msg void OnFileOpen();
 };

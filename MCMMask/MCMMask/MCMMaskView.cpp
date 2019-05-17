@@ -66,6 +66,11 @@ void CMCMMaskView::OnDraw(CDC* /*pDC*/)
 	// TODO: 在此处为本机数据添加绘制代码
     if (!pDoc->m_src.empty())
     {
+        RECT rt;
+        GetClientRect(&rt);
+        int width = rt.right - rt.left;
+        int height = rt.bottom - rt.top;
+        cv::resize(pDoc->m_src, pDoc->m_src, cv::Size(width, height));
         cv::imshow(m_cwndName, pDoc->m_src);
     }
 }
@@ -150,7 +155,11 @@ int CMCMMaskView::OnCreate(LPCREATESTRUCT lpCreateStruct)
     
     CMCMMaskDoc* pDoc = GetDocument();
     pDoc->m_src = cv::imread("1.png");
+    pDoc->m_mask = cv::Mat::zeros(pDoc->m_src.rows, pDoc->m_src.cols, CV_8UC1);
+
     cv::transpose(pDoc->m_src, pDoc->m_src);
+    cv::transpose(pDoc->m_mask, pDoc->m_mask);
+    
     Invalidate();
     return 0;
 }
