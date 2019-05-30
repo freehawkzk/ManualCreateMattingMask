@@ -1,10 +1,10 @@
-
-// MCMMaskView.cpp : CMCMMaskView ÀàµÄÊµÏÖ
+ï»¿
+// MCMMaskView.cpp : CMCMMaskView ç±»çš„å®ç°
 //
 
 #include "stdafx.h"
-// SHARED_HANDLERS ¿ÉÒÔÔÚÊµÏÖÔ¤ÀÀ¡¢ËõÂÔÍ¼ºÍËÑË÷É¸Ñ¡Æ÷¾ä±úµÄ
-// ATL ÏîÄ¿ÖĞ½øĞĞ¶¨Òå£¬²¢ÔÊĞíÓë¸ÃÏîÄ¿¹²ÏíÎÄµµ´úÂë¡£
+// SHARED_HANDLERS å¯ä»¥åœ¨å®ç°é¢„è§ˆã€ç¼©ç•¥å›¾å’Œæœç´¢ç­›é€‰å™¨å¥æŸ„çš„
+// ATL é¡¹ç›®ä¸­è¿›è¡Œå®šä¹‰ï¼Œå¹¶å…è®¸ä¸è¯¥é¡¹ç›®å…±äº«æ–‡æ¡£ä»£ç ã€‚
 #ifndef SHARED_HANDLERS
 #include "MCMMask.h"
 #endif
@@ -25,20 +25,21 @@
 IMPLEMENT_DYNCREATE(CMCMMaskView, CView)
 
 BEGIN_MESSAGE_MAP(CMCMMaskView, CView)
-	// ±ê×¼´òÓ¡ÃüÁî
+	// æ ‡å‡†æ‰“å°å‘½ä»¤
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CMCMMaskView::OnFilePrintPreview)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
-    ON_WM_CREATE()
+	ON_WM_CREATE()
+	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
-// CMCMMaskView ¹¹Ôì/Îö¹¹
+// CMCMMaskView æ„é€ /ææ„
 
 CMCMMaskView::CMCMMaskView()
 {
-	// TODO: ÔÚ´Ë´¦Ìí¼Ó¹¹Ôì´úÂë
+	// TODO: åœ¨æ­¤å¤„æ·»åŠ æ„é€ ä»£ç 
 
 }
 
@@ -48,13 +49,13 @@ CMCMMaskView::~CMCMMaskView()
 
 BOOL CMCMMaskView::PreCreateWindow(CREATESTRUCT& cs)
 {
-	// TODO: ÔÚ´Ë´¦Í¨¹ıĞŞ¸Ä
-	//  CREATESTRUCT cs À´ĞŞ¸Ä´°¿ÚÀà»òÑùÊ½
+	// TODO: åœ¨æ­¤å¤„é€šè¿‡ä¿®æ”¹
+	//  CREATESTRUCT cs æ¥ä¿®æ”¹çª—å£ç±»æˆ–æ ·å¼
 
 	return CView::PreCreateWindow(cs);
 }
 
-// CMCMMaskView »æÖÆ
+// CMCMMaskView ç»˜åˆ¶
 
 void CMCMMaskView::OnDraw(CDC* /*pDC*/)
 {
@@ -63,20 +64,20 @@ void CMCMMaskView::OnDraw(CDC* /*pDC*/)
 	if (!pDoc)
 		return;
 
-	// TODO: ÔÚ´Ë´¦Îª±¾»úÊı¾İÌí¼Ó»æÖÆ´úÂë
-    if (!pDoc->m_src.empty())
-    {
-        RECT rt;
-        GetClientRect(&rt);
-        int width = rt.right - rt.left;
-        int height = rt.bottom - rt.top;
-        cv::resize(pDoc->m_src, pDoc->m_src, cv::Size(width, height));
-        cv::imshow(m_cwndName, pDoc->m_src);
-    }
+	// TODO: åœ¨æ­¤å¤„ä¸ºæœ¬æœºæ•°æ®æ·»åŠ ç»˜åˆ¶ä»£ç 
+	if (!pDoc->m_src.empty())
+	{
+		RECT rt;
+		GetClientRect(&rt);
+		int width = rt.right - rt.left;
+		int height = rt.bottom - rt.top;
+		cv::resize(pDoc->m_src, pDoc->m_src, cv::Size(width, height));
+		cv::imshow(m_cwndName, pDoc->m_src);
+	}
 }
 
 
-// CMCMMaskView ´òÓ¡
+// CMCMMaskView æ‰“å°
 
 
 void CMCMMaskView::OnFilePrintPreview()
@@ -88,18 +89,18 @@ void CMCMMaskView::OnFilePrintPreview()
 
 BOOL CMCMMaskView::OnPreparePrinting(CPrintInfo* pInfo)
 {
-	// Ä¬ÈÏ×¼±¸
+	// é»˜è®¤å‡†å¤‡
 	return DoPreparePrinting(pInfo);
 }
 
 void CMCMMaskView::OnBeginPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
 {
-	// TODO: Ìí¼Ó¶îÍâµÄ´òÓ¡Ç°½øĞĞµÄ³õÊ¼»¯¹ı³Ì
+	// TODO: æ·»åŠ é¢å¤–çš„æ‰“å°å‰è¿›è¡Œçš„åˆå§‹åŒ–è¿‡ç¨‹
 }
 
 void CMCMMaskView::OnEndPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
 {
-	// TODO: Ìí¼Ó´òÓ¡ºó½øĞĞµÄÇåÀí¹ı³Ì
+	// TODO: æ·»åŠ æ‰“å°åè¿›è¡Œçš„æ¸…ç†è¿‡ç¨‹
 }
 
 void CMCMMaskView::OnRButtonUp(UINT /* nFlags */, CPoint point)
@@ -116,7 +117,7 @@ void CMCMMaskView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 }
 
 
-// CMCMMaskView Õï¶Ï
+// CMCMMaskView è¯Šæ–­
 
 #ifdef _DEBUG
 void CMCMMaskView::AssertValid() const
@@ -129,7 +130,7 @@ void CMCMMaskView::Dump(CDumpContext& dc) const
 	CView::Dump(dc);
 }
 
-CMCMMaskDoc* CMCMMaskView::GetDocument() const // ·Çµ÷ÊÔ°æ±¾ÊÇÄÚÁªµÄ
+CMCMMaskDoc* CMCMMaskView::GetDocument() const // éè°ƒè¯•ç‰ˆæœ¬æ˜¯å†…è”çš„
 {
 	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CMCMMaskDoc)));
 	return (CMCMMaskDoc*)m_pDocument;
@@ -137,29 +138,38 @@ CMCMMaskDoc* CMCMMaskView::GetDocument() const // ·Çµ÷ÊÔ°æ±¾ÊÇÄÚÁªµÄ
 #endif //_DEBUG
 
 
-// CMCMMaskView ÏûÏ¢´¦Àí³ÌĞò
+// CMCMMaskView æ¶ˆæ¯å¤„ç†ç¨‹åº
 
 
 int CMCMMaskView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-    if (CView::OnCreate(lpCreateStruct) == -1)
-        return -1;
+	if (CView::OnCreate(lpCreateStruct) == -1)
+		return -1;
 
-    // TODO:  ÔÚ´ËÌí¼ÓÄú×¨ÓÃµÄ´´½¨´úÂë
-    //pic = string(name);
-    cv::namedWindow(m_cwndName.c_str(), 1);
-    HWND hWnd = (HWND)cvGetWindowHandle(m_cwndName.c_str());
-    HWND hParent = ::GetParent(hWnd);
-    ::SetParent(hWnd, this->m_hWnd);
-    ::ShowWindow(hParent, SW_HIDE);
-    
-    CMCMMaskDoc* pDoc = GetDocument();
-    pDoc->m_src = cv::imread("1.png");
-    pDoc->m_mask = cv::Mat::zeros(pDoc->m_src.rows, pDoc->m_src.cols, CV_8UC1);
+	// TODO:  åœ¨æ­¤æ·»åŠ æ‚¨ä¸“ç”¨çš„åˆ›å»ºä»£ç 
+	//pic = string(name);
+	cv::namedWindow(m_cwndName.c_str(), 1);
+	HWND hWnd = (HWND)cvGetWindowHandle(m_cwndName.c_str());
+	HWND hParent = ::GetParent(hWnd);
+	::SetParent(hWnd, this->m_hWnd);
+	::ShowWindow(hParent, SW_HIDE);
 
-    cv::transpose(pDoc->m_src, pDoc->m_src);
-    cv::transpose(pDoc->m_mask, pDoc->m_mask);
-    
-    Invalidate();
-    return 0;
+	CMCMMaskDoc * pDoc = GetDocument();
+	pDoc->m_src = cv::imread("1.png");
+	pDoc->m_mask = cv::Mat::zeros(pDoc->m_src.rows, pDoc->m_src.cols, CV_8UC1);
+
+	cv::transpose(pDoc->m_src, pDoc->m_src);
+	cv::transpose(pDoc->m_mask, pDoc->m_mask);
+
+	Invalidate();
+	return 0;
+}
+
+
+void CMCMMaskView::OnSize(UINT nType, int cx, int cy)
+{
+	CView::OnSize(nType, cx, cy);
+
+	// TODO: åœ¨æ­¤å¤„æ·»åŠ æ¶ˆæ¯å¤„ç†ç¨‹åºä»£ç 
+
 }

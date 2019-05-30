@@ -1,5 +1,5 @@
-
-// MCMMaskView.h : CMCMMaskView ÀàµÄ½Ó¿Ú
+ï»¿
+// MCMMaskView.h : CMCMMaskView ç±»çš„æ¥å£
 //
 
 #pragma once
@@ -7,27 +7,27 @@
 #include <string>
 class CMCMMaskView : public CView
 {
-protected: // ½ö´ÓĞòÁĞ»¯´´½¨
+protected: // ä»…ä»åºåˆ—åŒ–åˆ›å»º
 	CMCMMaskView();
 	DECLARE_DYNCREATE(CMCMMaskView)
 
-// ÌØĞÔ
+	// ç‰¹æ€§
 public:
 	CMCMMaskDoc* GetDocument() const;
 
-// ²Ù×÷
+	// æ“ä½œ
 public:
 
-// ÖØĞ´
+	// é‡å†™
 public:
-	virtual void OnDraw(CDC* pDC);  // ÖØĞ´ÒÔ»æÖÆ¸ÃÊÓÍ¼
+	virtual void OnDraw(CDC* pDC);  // é‡å†™ä»¥ç»˜åˆ¶è¯¥è§†å›¾
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 protected:
 	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
 	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
 	virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
 
-// ÊµÏÖ
+	// å®ç°
 public:
 	virtual ~CMCMMaskView();
 #ifdef _DEBUG
@@ -37,23 +37,25 @@ public:
 
 protected:
 
-// Éú³ÉµÄÏûÏ¢Ó³Éäº¯Êı
+	// ç”Ÿæˆçš„æ¶ˆæ¯æ˜ å°„å‡½æ•°
 protected:
 	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	DECLARE_MESSAGE_MAP()
 public:
-    afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 
 
 public:
-    cv::Mat m_src;
-    const std::string m_cwndName = "wnd";
+	cv::Mat m_src;
+	const std::string m_cwndName = "wnd";
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 };
 
-#ifndef _DEBUG  // MCMMaskView.cpp ÖĞµÄµ÷ÊÔ°æ±¾
+#ifndef _DEBUG  // MCMMaskView.cpp ä¸­çš„è°ƒè¯•ç‰ˆæœ¬
 inline CMCMMaskDoc* CMCMMaskView::GetDocument() const
-   { return reinterpret_cast<CMCMMaskDoc*>(m_pDocument); }
+{
+	return reinterpret_cast<CMCMMaskDoc*>(m_pDocument);
+}
 #endif
-
